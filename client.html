@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <title>GPIO Watcher</title>
+    <style type="text/css">
+        div {
+	  padding: 12px;
+	}
+	#container span {
+		height: 20px;
+		width: 100px;
+		margin: 10px;
+		padding: 10px;
+		background-color: gray;
+	}
+	#container span.on {
+		background-color: red;
+	} 	
+    </style>
+    </head>
+    <body>
+        <div>Pin State</div>
+        <div id="container">
+	  <span id="pin01">17</span>
+	  <span id="pin02">18</span>
+	  <span id="pin03">19</span>
+        </div>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script>
+    // creating a new websocket
+    var socket = io.connect('http://192.168.1.69');
+    // on every message recived we print the new datas inside the #container div
+    socket.on('pin01_state', function (data) {
+        data && $('#pin01').addClass("on") || $('#pin01').removeClass("on");;
+    });
+    socket.on('pin02_state', function (data) {
+        data && $('#pin02').addClass("on") || $('#pin02').removeClass("on");;
+    });
+    socket.on('pin03_state', function (data) {
+        data && $('#pin03').addClass("on") || $('#pin03').removeClass("on");;
+    });
+    </script>
+    </body>
+</html>
